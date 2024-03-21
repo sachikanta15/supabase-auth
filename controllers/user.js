@@ -1,6 +1,6 @@
-import { creteDbUser } from "../database/user/createDbUser.js";
-import { createAuthUser } from "../middlewares/authUser.js";
-import { authLogin } from "../middlewares/authlogin.js";
+import { createDbUser } from "../database/user/createDbUser.js";
+import { createAuthUser } from "../auth/authuser.js";
+import { authLogin } from "../auth/authlogin.js";
 
 export const root = async (req, res) => {
   console.log("printig from the root");
@@ -17,12 +17,10 @@ export const signup = async (req, res) => {
     console.log(email,password,firstName,lastName)
     let authId = await createAuthUser(
       email,
-      password,
-      firstName,
-      lastName
+      password
     );
-    await creteDbUser({ auth_id: authId, email, firstName, lastName });
-    res.status(200).send("Account created Successfully!");
+    await createDbUser({ id: authId,email });
+    res.status(200).send(`${firstName + lastName } Your Account created Successfully!`);
   } catch (err) {
     res.status(400).send("Failed to sign user up !");
     console.error(err);
@@ -40,3 +38,9 @@ export const login = async (req, res) => {
   }
 };
 
+export const getUser = async (req,res)=>{
+    res.status(200).send(req.user);
+    // console.log(req)
+    console.log("printing the user")
+    console.log(req.user)
+}
