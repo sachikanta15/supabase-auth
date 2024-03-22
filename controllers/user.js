@@ -17,7 +17,7 @@ export const signup = async (req, res) => {
       email,
       password,
     );
-    await createDbUser({ id: authId,email,firstName, lastName });
+    // await createDbUser({ id: authId,email,firstName, lastName });
     res.status(200).send(`${firstName + lastName } Your Account created Successfully!`);
   } catch (err) {
     res.status(400).send("Failed to sign user up !");

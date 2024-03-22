@@ -9,21 +9,21 @@ const supabase = createClient(supabaseUrl, anonKey);
 
 export const createAuthUser = async (email, password) => {
   try {
+    console.log("starting authenticateing the users")
     const { data, error } = await supabase.auth.signUp({
-      email: "user@example.com",
-      password: "securePassword",
+      email,
+      password,
     });
 
     if (error) {
       console.log("prinitng the error fomr the signup page", error);
+      console.log("printing error from authuser");
+      console.log(error);
       throw error;
     }
     console.log("printing from the authUser");
     console.log(data);
-    if (error) {
-      console.log("printing error from authuser");
-      console.log(error);
-    }
+    
     return data.user.id;
   } catch (err) {
     console.error(err.message);
