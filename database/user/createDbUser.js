@@ -6,15 +6,21 @@ const anonKey = process.env.ANON_KEY;
 const supabase = createClient(supabaseUrl, anonKey);
 
 export const createDbUser = async (userData) => {
-  console.log("printing from the createuser function")
-  console.log(userData)
+  console.log("printing from the createuser function");
+  console.log(userData);
   try {
-    const { data, error } = await supabase.from('users').insert(userData);
+    const { data, error } = await supabase.from("users").insert({
+      id: userData.id,
+      email: userData.email,
+      first_name: userData.firstName,
+      last_name: lastName,
+    });
     if (error) {
-      throw error;
+      res.send(error);
     }
-    console.log("printing from creating db user")
-    console.log(data)
+    console.log("printing from creating db user");
+    console.log(data);
+    res.send("created User in DB!!");
     return data;
   } catch (err) {
     console.error("Error creating user", err);

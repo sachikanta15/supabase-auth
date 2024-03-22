@@ -8,16 +8,14 @@ const anonKey = process.env.ANON_KEY;
 const supabase = createClient(supabaseUrl, anonKey);
 
 export const createAuthUser = async (email, password) => {
- 
   try {
-    const { data, error } = await supabase.auth.signUp(
-      {
-        email,
-        password,
-      }
-    );
+    const { data, error } = await supabase.auth.signUp({
+      email: "user@example.com",
+      password: "securePassword",
+    });
 
     if (error) {
+      console.log("prinitng the error fomr the signup page", error);
       throw error;
     }
     console.log("printing from the authUser");

@@ -12,10 +12,11 @@ export const getUserbyAuthId = async (authId) => {
     throw new Error("Auth Id is required to fetch User");
   }
   try {
+    console.log("printing from the fetch user by id function",authId)
     const { data, error } = await supabase
       .from('users')
       .select('*')
-      .eq("auth_id", authId)
+      .eq("id", authId)
       .single();
     if (error) {
       throw error;

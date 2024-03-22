@@ -12,18 +12,16 @@ export const signup = async (req, res) => {
   try {
    
     let { email, password, firstName, lastName } = req.body;
-    
-    console.log("print the value")
-    console.log(email,password,firstName,lastName)
+  
     let authId = await createAuthUser(
       email,
-      password
+      password,
     );
-    await createDbUser({ id: authId,email });
+    await createDbUser({ id: authId,email,firstName, lastName });
     res.status(200).send(`${firstName + lastName } Your Account created Successfully!`);
   } catch (err) {
     res.status(400).send("Failed to sign user up !");
-    console.error(err);
+    console.error("log",err);
   }
 };
 
