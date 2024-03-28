@@ -17,8 +17,8 @@ export const signup = async (req, res) => {
       email,
       password,
     );
-    // await createDbUser({ id: authId,email,firstName, lastName });
-    res.status(200).send(`${firstName + lastName } Your Account created Successfully!`);
+    await createDbUser({ id: authId,email,});
+    res.status(200).send(`${firstName + " "+lastName } Your Account created Successfully!`);
   } catch (err) {
     res.status(400).send("Failed to sign user up !");
     console.error("log",err);
@@ -41,4 +41,8 @@ export const getUser = async (req,res)=>{
     // console.log(req)
     console.log("printing the user")
     console.log(req.user)
+}
+
+export const getUserTransaction = async (req,res)=>{
+  res.status(200).send(req.user)
 }

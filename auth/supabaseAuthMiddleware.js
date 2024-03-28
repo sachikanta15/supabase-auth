@@ -7,8 +7,8 @@ const anonKey = process.env.ANON_KEY;
 const supabase = createClient(supabaseUrl, anonKey);
 
 export const supabaseAuthMiddleware = async (req, res, next) => {
-  console.log("printing from the supabaseAuthMiddlewares page");
-  console.log(req);
+  // console.log("printing from the supabaseAuthMiddlewares page");
+  // console.log(req);
   let authHeader = req.headers.authorization;
   if (!authHeader) {
     return res.status(401).json({ message: "Unathorized" });
