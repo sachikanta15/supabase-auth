@@ -24,7 +24,7 @@ export const supabaseAuthMiddleware = async (req, res, next) => {
   let authId = data.user.id;
   console.log("priniting the authID");
   console.log(authId);
-  let user = await getUserbyAuthId(authId);
-  req.user = user;
+  // let user = await getUserbyAuthId(authId);
+  req.authId = authId;
   return next();
 };

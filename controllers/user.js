@@ -1,6 +1,8 @@
 import { createDbUser } from "../database/user/createDbUser.js";
 import { createAuthUser } from "../auth/authuser.js";
 import { authLogin } from "../auth/authlogin.js";
+import { getUserbyAuthId } from "../auth/getUserByAuthId.js";
+import { getUserTransactions } from "../auth/getUserTransactions.js";
 
 export const root = async (req, res) => {
   console.log("printig from the root");
@@ -37,12 +39,30 @@ export const login = async (req, res) => {
 };
 
 export const getUser = async (req,res)=>{
-    res.status(200).send(req.user);
-    // console.log(req)
-    console.log("printing the user")
-    console.log(req.user)
+  console.log("printing from the getuser controllers",req.authId)
+  let authId  = req.authId;
+  console.log(authId);
+  try{
+    let user = await getUserbyAuthId(authId);
+    res.status(200).send(user);
+  }
+  catch(err){
+    res.status(400).send(err)
+  }
 }
 
 export const getUserTransaction = async (req,res)=>{
-  res.status(200).send(req.user)
+  // console.log("printing from the getUserTransaction controllers",req.authId)
+  let authId  = req.authId;
+  console.log(authId);
+  try{
+    let userTransactions = await getUserTransactions(authId);
+    console.log(typeof(userTransactions))
+    console.log("User Transactions:", userTransactions);
+    res.status(200).send(userTransactions);
+  }
+  catch(err){
+    console.error("Error fetching user transactions:", err);
+    res.status(400).send(err);
+  }
 }

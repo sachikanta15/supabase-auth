@@ -15,8 +15,7 @@ export const getUserTransactions = async (authId) => {
     const { data, error } = await supabase
       .from("transactions")
       .select("*")
-      .eq("id", authId)
-      .single();
+      .match({id: authId});
     if (error) {
       throw error;
     }
