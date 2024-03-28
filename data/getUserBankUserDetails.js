@@ -6,20 +6,20 @@ const anonKey = process.env.ANON_KEY;
 // Create Supabase client instance
 const supabase = createClient(supabaseUrl, anonKey);
 
-export const getUserTransactions = async (authId) => {
+export const getUserBankUserDetails = async (authId) => {
   if (!authId) {
     throw new Error("Please login to get the details");
   }
   try {
-    console.log("printing from the fetch user by id function", authId);
+
     const { data, error } = await supabase
-      .from("transactions")
+      .from("bank_users_details")
       .select("*")
-      .match({id: authId});
+      .eq("id", authId);
     if (error) {
       throw error;
     }
-    console.log("printing from the getuserTransaction ");
+    console.log("printing from the getUserBankUserDetails ");
     console.log(data);
     return data;
   } catch (err) {
