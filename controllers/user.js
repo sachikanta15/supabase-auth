@@ -3,6 +3,8 @@ import { createAuthUser } from "../auth/authuser.js";
 import { authLogin } from "../auth/authlogin.js";
 import { getUserbyAuthId } from "../auth/getUserByAuthId.js";
 import { getUserTransactions } from "../auth/getUserTransactions.js";
+import { getUserBankAccountsDetails } from "../data/getUserBankAccountsDetails.js";
+import { getUserBankUserDetails } from "../data/getUserBankUserDetails.js";
 
 export const root = async (req, res) => {
   console.log("printig from the root");
@@ -66,3 +68,32 @@ export const getUserTransaction = async (req,res)=>{
     res.status(400).send(err);
   }
 }
+
+export const userBankAccountsDetails = async (req,res)=>{
+  console.log("printing from the getUserTransaction controllers",req.authId)
+  let authId  = req.authId;
+  console.log(authId);
+  try{
+    let userTransactions = await getUserBankAccountsDetails(authId);
+    res.status(200).send(userTransactions);
+  }
+  catch(err){
+    console.error("Error fetching user getUserBankDetails:", err);
+    res.status(400).send(err);
+  }
+}
+
+export const userBankUserDetails = async (req,res)=>{
+  // console.log("printing from the getUserTransaction controllers",req.authId)
+  let authId  = req.authId;
+  console.log(authId);
+  try{
+    let userTransactions = await getUserBankUserDetails(authId);
+    res.status(200).send(userTransactions);
+  }
+  catch(err){
+    console.error("Error fetching user getUserBankDetails:", err);
+    res.status(400).send(err);
+  }
+}
+
