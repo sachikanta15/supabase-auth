@@ -13,6 +13,7 @@ const router = Router();
 
 router.get("/", root);
 router.post("/signup", signup);
+
 router.post("/login", login);
 router.get("/getUser", auth_middlewares, getUser);
 router.get("/getUserTransactions", auth_middlewares, getUserTransaction);
